@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/campus-network-guide/',
   title: "校园网防多设备检测指南",
   description: "一份详细的指南帮助你的绕过校园网的多设备检测",
   themeConfig: {
