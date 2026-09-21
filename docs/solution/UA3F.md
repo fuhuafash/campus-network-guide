@@ -57,6 +57,8 @@ http://ua-check.stagoh.com
 
 👉 酌情开启 删除 TCP 时间戳 、固定 TCP 初始接收窗口
 
+#### 🎉 随后启动UA3F完成
+
 ### 2.配合代理（抗DPI）
 
 👉 安装[shellcrash](https://github.com/juewuy/ShellCrash/blob/dev/README_CN.md)
@@ -71,9 +73,12 @@ http://ua-check.stagoh.com
 
 #### 懒人配置文件
 
-| 导入配置文件前先在指定位置填入节点订阅 |
-| --- |
-| 👉 如果UA3F选择`TPROXY` | |
-| 👉 如果UA3F选择`SOCKS5` | |
+| 导入配置文件前先在指定位置填入节点订阅 | 配置文件 |
+| --- | --- |
+| 👉 如果UA3F选择`TPROXY` | [Campusinternet-TPROXY.yaml](https://github.com/fuhuafash/campus-network-guide/blob/main/Campusinternet-TPROXY.yaml) |
+| 👉 如果UA3F选择`SOCKS5` | [Campusinternet-SOCKS5.yaml](https://github.com/fuhuafash/campus-network-guide/blob/main/Campusinternet-SOCKS5.yaml) |
 
-完整文档与配置示例请参阅 [UA3F 官方文档](https://ua3f.sunbk201.site/)。
+#### 🎉 随后启动UA3F和shellcrash完成
+
+
+其他UA3F完整文档与配置示例请参阅 [UA3F 官方文档](https://ua3f.sunbk201.site/)。
