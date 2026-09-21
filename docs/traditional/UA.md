@@ -20,7 +20,7 @@ User-Agent 是 HTTP/HTTPS 请求头（Header）中的一个字符串字段。它
 网关探针通常不需要解析完整的字符串，只需提取其中的**操作系统核心关键字**：
 
 | 操作系统类型 | 典型 UA 关键特征 | 实际请求示例片段 |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | **Windows 10/11** | `Windows NT 10.0; Win64` | `Mozilla/5.0 (Windows NT 10.0; Win64; x64)...` |
 | **Android** | `Android <版本号>` | `Mozilla/5.0 (Linux; Android 16; Pixel 9 Pro)...` |
 | **iOS** | `iPhone OS + Version/<版本号>` | `Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X)...` |
@@ -49,14 +49,14 @@ macOS 上的 Safari 早在 2017 年就已将系统版本冻结在 `10_15_7`（ma
 当单台设备直接连接校园网时，无论发起多少明文 HTTP 请求，网关收集到的 UA 操作系统特征保持高度一致。
 
 | 设备类型 | 请求流量类型 | 抓取的明文 HTTP UA  | 校园网网关判定 |
-| :--- | :--- | :--- | :--- |
-| **Windows 电脑** | 明文 HTTP | `Windows NT 10.0` | 唯一设备（Windows） |
-| **Android 手机** | 明文 HTTP | `Android 16` | 唯一设备（Android） |
+| --- | --- | --- | --- |
+| Windows 电脑 | 明文 HTTP | `Windows NT 10.0` | 唯一设备（Windows） |
+| Android 手机 | 明文 HTTP | `Android 16` | 唯一设备（Android） |
 
 ### 2. 挂载路由器（经过路由 NAT 转发）
 
 宿舍接入路由器后，多台不同系统的设备通过 NAT 转换共享同一个公网 IP 地址上网：
 
 | 下挂设备组合 | 抓取的明文 HTTP UA | 校园网网关判定 |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Windows 电脑 + iPhone | `Windows NT 10.0` 与 `iPhone OS` 混合出现 | ⚠️ **封禁或增加封禁概率** |

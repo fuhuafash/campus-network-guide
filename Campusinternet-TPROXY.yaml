@@ -1,0 +1,274 @@
+---
+#--------------------------------------------------------------------------------------#
+# Written by fuhua. Configured for ShellClash. UA3F.
+#--------------------------------------------------------------------------------------#
+mixed-port: 7890
+ipv6: true
+bind-address: '*'
+mode: rule
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  sniff:
+    TLS:
+      ports: [443, 8443]
+    HTTP:
+      ports: [80, 8080-8880]
+    QUIC:
+      ports: [443, 8443]
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  respect-rules: true
+  default-nameserver:
+    - 223.5.5.5
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+  nameserver-policy:
+    '+.arpa': '10.0.0.1'
+    'rule-set:cn':
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 127.0.0.1/32
+      - 100.64.0.0/10
+    domain:
+      - '+.google.com'
+      - '+.googleapis.com'
+      - '+.googleapis.cn'
+      - '+.googlevideo.com'
+      - '+.gstatic.com'
+      - '+.youtube.com'
+      - '+.youtu.be'
+      - '+.facebook.com'
+      - '+.twitter.com'
+      - '+.x.com'
+      - '+.github.com'
+      - '+.githubusercontent.com'
+      - '+.openai.com'
+      - '+.chatgpt.com'
+      - '+.anthropic.com'
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - '*.localhost'
+    - '*.test'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.stun.*.*'
+    - '+.stun.*.*.*'
+    - '+.stun.*.*.*.*'
+    - 'lens.l.google.com'
+    - '*.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - 'xbox.*.*.microsoft.com'
+    - '*.*.xboxlive.com'
+    - '+.msftncsi.com'
+    - '+.msftconnecttest.com'
+#--------------------------------------------------------------------------------------#
+proxies:
+#--------------------------------------------------------------------------------------#
+proxy-providers:
+  Global-ISP:
+    type: http
+    url: "" # 👈 填入订阅
+    interval: 3600
+    path: "./Proxy-Providers/Global-ISP.yaml"
+    health-check:
+      enable: true
+      interval: 600
+#--------------------------------------------------------------------------------------#
+
+proxy-groups:
+  - name: "Switch"
+    type: select
+    proxies:
+      - Fallback
+      - Global-ISP
+
+  - name: "Fallback"
+    type: fallback
+    proxies:
+      - HongKong
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+    interval: 300
+
+  - name: "Global-ISP"
+    type: select
+    use:
+      - Global-ISP
+
+  - name: "CN"
+    type: select
+    proxies:
+      - DIRECT
+    url: http://connectivitycheck.platform.hicloud.com/generate_204
+    interval: 300
+
+#--------------------------------------------------------------------------------------#
+# 下列为校园网流量代理组
+
+  - name: "WeChat&QQ"
+    type: select
+    proxies:
+      - HongKong
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+      - Global-ISP
+
+#--------------------------------------------------------------------------------------#
+# 下列为国外流量代理组
+
+  - name: "OpenAI"
+    type: select
+    proxies:
+      - Taiwan
+      - Singapore
+      - Japan
+      - USA
+      - Global-ISP
+
+  - name: "Gemini"
+    type: select
+    proxies:
+      - HongKong
+      - Japan
+      - Taiwan
+      - Singapore
+      - USA
+      - Global-ISP
+
+#--------------------------------------------------------------------------------------#
+# 下列为地区节点选择
+
+  - name: "HongKong"
+    type: url-test
+    filter: "^(?!.*?(Premium)).*(香港|Hong Kong|HK)"
+    use:
+      - Global-ISP
+    interval: 300
+    tolerance: 50
+
+  - name: "Taiwan"
+    type: url-test
+    filter: "^(?!.*?(Premium)).*(台湾|Taiwan|TW)"
+    use:
+      - Global-ISP
+    interval: 300
+    tolerance: 50
+
+  - name: "Singapore"
+    type: url-test
+    filter: "^(?!.*?(Premium)).*(新加坡|Singapore|SG)"
+    use:
+      - Global-ISP
+    interval: 300
+    tolerance: 50
+
+  - name: "Japan"
+    type: url-test
+    filter: "^(?!.*?(Premium)).*(日本|Japan|JP)"
+    use:
+      - Global-ISP
+    interval: 300
+    tolerance: 50
+
+  - name: "USA"
+    type: url-test
+    filter: "^(?!.*?(Premium)).*(美国|USA|US)"
+    use:
+      - Global-ISP
+    interval: 300
+    tolerance: 50
+
+#--------------------------------------------------------------------------------------#
+
+rules:
+  # 绕过本地地址
+  - GEOIP,LAN,DIRECT,no-resolve
+
+  # 绕过国内bing
+  - DOMAIN-SUFFIX,bing.com,CN
+
+  # SteamCN流量走直连
+  - RULE-SET,SteamCN,CN
+
+#--------------------------------------------------------------------------------------#
+  # 有其它流量特征需要代理请在下方添加（例如抖音流量）
+
+  # 微信&QQ
+  - RULE-SET,WeChat,WeChat&QQ
+  - DOMAIN-SUFFIX,weixin.qq.com.cn,WeChat&QQ
+  - DOMAIN-KEYWORD,wx,WeChat&QQ
+  - DOMAIN-KEYWORD,qq,WeChat&QQ
+
+#--------------------------------------------------------------------------------------#
+  
+  # 简单分流AI
+  - RULE-SET,OpenAI,OpenAI
+  - RULE-SET,Gemini,Gemini
+
+  # 中国大陆流量
+  - RULE-SET,China,CN
+  - GEOIP,CN,CN
+
+  # 绕过UDP流量
+  - NETWORK,udp,DIRECT
+
+  # 未识别TCP流量走代理
+  - MATCH,Switch
+
+#--------------------------------------------------------------------------------------#
+rule-providers:
+  China:
+    type: http
+    behavior: domain
+    path: ./RuleSet/China.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/China/China_Domain.yaml
+    interval: 86400
+  WeChat:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/WeChat/WeChat.yaml"
+    path: ./RuleSet/WeChat.yaml
+    interval: 86400
+  OpenAI:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml"
+    path: ./RuleSet/OpenAI.yaml
+    interval: 86400
+  SteamCN:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/SteamCN/SteamCN.yaml"
+    path: ./RuleSet/SteamCN.yaml
+    interval: 86400
+  Gemini:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Gemini/Gemini.yaml"
+    path: ./RuleSet/Gemini.yaml
+    interval: 86400
+#--------------------------------------------------------------------------------------#
+parsers:
+#--------------------------------------------------------------------------------------#
