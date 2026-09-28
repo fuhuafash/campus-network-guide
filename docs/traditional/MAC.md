@@ -1,8 +1,8 @@
 ---
-title: MAC 检测机制与原理
+title: MAC 检测
 ---
 
-# 🪧 MAC 检测原理
+# 🪧 MAC 检测
 
 在校园网多设备检测的各种技术手段中，**MAC 检测**是二层接入场景中最直接的手段，常与 TTL、DHCP 指纹、流量特征等配合使用。
 
@@ -38,5 +38,5 @@ MAC（Media Access Control Address）是数据链路层地址，用于同一局�
 
 | 其他手段判断的设备类型 | 抓取的 MAC 特征 | 校园网网关判定 |
 | --- | --- | --- |
-| Windows 电脑 | 源 MAC = 电脑物理 MAC 或随机 MAC | 唯一设备 |
-| Android 手机 | 源 MAC = 电脑物理 MAC | ⚠️ **封禁或增加封禁概率** |
+| Windows 电脑 | 源 MAC = 电脑物理 MAC 或随机 MAC | ✔️ 唯一设备 |
+| Android 手机 | 源 MAC = 电脑物理 MAC | ⚠️ 配合其他探针持续跟踪 |

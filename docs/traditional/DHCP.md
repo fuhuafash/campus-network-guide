@@ -1,8 +1,8 @@
 ---
-title: DHCP 指纹检测机制与原理
+title: DHCP 指纹检测
 ---
 
-# 🏷️ DHCP 指纹检测原理
+# 🏷️ DHCP 指纹检测
 
 **DHCP 指纹检测**属于应用层与网络配置协议层的终端指纹识别技术，无需解密 HTTPS 流量即可精准识别终端操作系统类型。  
 
@@ -37,8 +37,8 @@ DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）用于�
 
 | 设备类型 | 请求流量类型 | 抓取的 DHCP 指纹 | 校园网网关判定 |
 | --- | --- | --- | --- |
-| **Windows** | DHCP Request | `Option 55` 含 249/252/114，`Option 60` 为 `MSFT 5.0` | 唯一设备（Windows） |
-| **Android** | DHCP Request | `Option 55` 含 26/28/58/59，`Option 60` 含 `android-dhcp-<版本号>` | 唯一设备（Android） |
+| **Windows** | DHCP Request | `Option 55` 含 249/252/114，`Option 60` 为 `MSFT 5.0` | ✔️ 唯一设备（Windows） |
+| **Android** | DHCP Request | `Option 55` 含 26/28/58/59，`Option 60` 含 `android-dhcp-<版本号>` | ✔️ 唯一设备（Android） |
 
 
 ### 2. 挂载路由器（经过路由 NAT 转发）
@@ -47,5 +47,5 @@ DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）用于�
 
 | 场景与设备组合 | 抓取的网络特征组合 | 校园网网关判定 |
 | --- | --- | --- |
-| OpenWrt 路由器 WAN 口申请 IP | DHCP 指纹为 `Linux/udhcpc` | ⚠️ **识别为路由器设备** |
-| OpenWrt 路由器 + 下挂 Windows | DHCP 指纹为 `Linux/udhcpc`，而上报 HTTP UA 为 `Windows NT 10.0` | ⚠️ **指纹冲突，判定挂载路由** |
+| OpenWrt 路由器 | DHCP 指纹为 `Linux/udhcpc` | ✔️ Linux设备 |
+| OpenWrt 路由器 + 下挂 Windows | 指纹为 `Linux/udhcpc`，UA 为 `Windows NT 10.0` | 🚨 **挂载路由** |

@@ -34,7 +34,8 @@ export default defineConfig({
           text: '另类检测',
           collapsed: false,
           items: [
-            { text: 'TCP 连接数', link: '/others/TCP' }
+            { text: 'TCP 连接数', link: '/others/TCP_connects' },
+            { text: 'TCP SYN 指纹', link: '/others/TCP_syn' }
           ]
         },
         {

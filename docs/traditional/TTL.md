@@ -1,8 +1,8 @@
 ---
-title: TTL 检测机制与原理
+title: TTL 检测
 ---
 
-# ⏳ TTL 检测原理
+# ⏳ TTL 检测
 
 在校园网多设备检测的各种技术手段中，**TTL 检测**是成本最低、应用最广的。
 
@@ -35,8 +35,8 @@ TTL（Time To Live） 是 IPv4 数据包首部中的一个 8 位（bit） 字段
 
 | 设备类型 | 请求流量类型 | 抓取的 TTL 特征 | 校园网网关判定 |
 | --- | --- | --- | --- |
-| Windows 电脑 | IPv4 数据包 | TTL = `128` | 唯一设备（Windows） |
-| Android 手机 | IPv4 数据包 | TTL = `64` | 唯一设备（Android/iOS） |
+| Windows 电脑 | IPv4 数据包 | TTL = `128` | ✔️ 唯一设备（Windows） |
+| Android 手机 | IPv4 数据包 | TTL = `64` | ✔️ 唯一设备（Android/iOS） |
 
 ---
 
@@ -46,5 +46,5 @@ TTL（Time To Live） 是 IPv4 数据包首部中的一个 8 位（bit） 字段
 
 | 下挂设备组合 | 抓取的 TTL 特征 | 校园网网关判定 |
 | --- | --- | --- |
-|  Windows 电脑 | TTL = `127` | ⚠️ **封禁或增加封禁概率** |
-| Windows 电脑 + Android 手机 | TTL = `127` 与 `63` 混合出现 | ⚠️ **封禁或增加封禁概率** |
+|  Windows 电脑 | TTL = `127` | 🚨 **封禁** |
+| Windows 电脑 + Android 手机 | TTL = `127` 与 `63` 混合出现 | 🚨 **封禁** |
