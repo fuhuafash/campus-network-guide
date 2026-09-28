@@ -1,8 +1,8 @@
 ---
-title: HTTP User-Agent 检测机制与原理
+title: HTTP User-Agent 检测
 ---
 
-# 🪪 HTTP User-Agent (UA) 检测原理
+# 🪪 HTTP User-Agent (UA) 检测
 
 **HTTP User-Agent（UA）检测**属于应用层的终端指纹识别，受限于 TLS/HTTPS 协议的端到端加密机制，网关探针仅能抓取并解析明文 HTTP 流量中的 UA 报文。
 
@@ -50,8 +50,8 @@ macOS 上的 Safari 早在 2017 年就已将系统版本冻结在 `10_15_7`（ma
 
 | 设备类型 | 请求流量类型 | 抓取的明文 HTTP UA  | 校园网网关判定 |
 | --- | --- | --- | --- |
-| Windows 电脑 | 明文 HTTP | `Windows NT 10.0` | 唯一设备（Windows） |
-| Android 手机 | 明文 HTTP | `Android 16` | 唯一设备（Android） |
+| Windows 电脑 | 明文 HTTP | `Windows NT 10.0` | ✔️ 唯一设备（Windows） |
+| Android 手机 | 明文 HTTP | `Android 16` | ✔️ 唯一设备（Android） |
 
 ### 2. 挂载路由器（经过路由 NAT 转发）
 
@@ -59,4 +59,4 @@ macOS 上的 Safari 早在 2017 年就已将系统版本冻结在 `10_15_7`（ma
 
 | 下挂设备组合 | 抓取的明文 HTTP UA | 校园网网关判定 |
 | --- | --- | --- |
-| Windows 电脑 + iPhone | `Windows NT 10.0` 与 `iPhone OS` 混合出现 | ⚠️ **封禁或增加封禁概率** |
+| Windows 电脑 + iPhone | `Windows NT 10.0` 与 `iPhone OS` 混合出现 | ⚠️ 配合其他探针持续跟踪 |
