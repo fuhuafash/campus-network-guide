@@ -32,12 +32,16 @@ title: UA3F
 ## 快速运行
 
 
-### 服务模式推荐选择
+### 以下有两种UA3F工作模式推荐
 
 | 模式 | 工作方式 | 典型用途 |
 | --- | --- | --- |
-| SOCKS5 | SOCKS5 代理 | 与 Clash 代理链路配合 |
-| TPROXY | netfilter TPROXY | Linux/OpenWrt 透明代理，保留原始目标地址 |
+| SOCKS5 | SOCKS5 代理 | 与 Clash 代理链路配合处理其他特征 |
+| TPROXY | netfilter TPROXY | 透明代理，配合代理与处理简单检测皆可 |
+
+---
+
+### 以下有两种场景配置
 
 ### 1.不需要代理
 
@@ -57,7 +61,7 @@ http://ua-check.stagoh.com
 
 👉 酌情开启 删除 TCP 时间戳 、固定 TCP 初始接收窗口
 
-#### 🎉 随后启动UA3F完成
+---
 
 ### 2.配合代理（抗DPI）
 
@@ -65,20 +69,21 @@ http://ua-check.stagoh.com
 
 👉 配置shellcrash
 
-| 由于shellcrash脚本优先级大于配置文件需要注意 |
+⚠️ 由于shellcrash脚本优先级大于配置文件，需要注意以下选项的设置：
+
+| 脚本配置 |
 | --- |
 | 路由模式设置: `Tproxy模式` |
 | 过滤CN_IP列表: `OFF` |
 | 启用域名嗅探: `ON` |
+|过滤非常用端口: `OFF` |
 
-#### 懒人配置文件
+#### 导入快捷规则
 
 | 导入配置文件前先在指定位置填入节点订阅 | 配置文件 |
 | --- | --- |
 | 👉 如果UA3F选择`TPROXY` | [Campusinternet-TPROXY.yaml](https://github.com/fuhuafash/campus-network-guide/blob/main/Campusinternet-TPROXY.yaml) |
 | 👉 如果UA3F选择`SOCKS5` | [Campusinternet-SOCKS5.yaml](https://github.com/fuhuafash/campus-network-guide/blob/main/Campusinternet-SOCKS5.yaml) |
-
-#### 🎉 随后启动UA3F和shellcrash完成
 
 
 其他UA3F完整文档与配置示例请参阅 [UA3F 官方文档](https://ua3f.sunbk201.site/)。
