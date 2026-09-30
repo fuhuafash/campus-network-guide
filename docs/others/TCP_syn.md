@@ -51,4 +51,4 @@ TCP（Transmission Control Protocol）是面向连接的传输层协议。建立
 
 ## 🤝 参与贡献
 
-如果你验证了新的 TCP 检测特征或应对方案，欢迎提交 Issue 或 PR。
+如果你验证了新的 TCP 检测特征或应对方案，欢迎提交 Issue。
