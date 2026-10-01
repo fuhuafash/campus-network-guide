@@ -1,0 +1,24 @@
+name: Bug report
+description: Create a report to help us improve
+title: ''
+labels: ["bug"]
+assignees: []
+body:
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: 请确认问题类型
+      options:
+        - 文档错误
+        - 配置文件错误
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+      description: 请简要描述你遇到的问题
+    validations:
+      required: false
