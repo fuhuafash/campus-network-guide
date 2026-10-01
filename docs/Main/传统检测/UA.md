@@ -2,7 +2,7 @@
 title: HTTP User-Agent 检测
 ---
 
-# 🪪 HTTP User-Agent (UA) 检测
+# HTTP User-Agent (UA) 检测
 
 **HTTP User-Agent（UA）检测**属于应用层的终端指纹识别，受限于 TLS/HTTPS 协议的端到端加密机制，网关探针仅能抓取并解析明文 HTTP 流量中的 UA 报文。
 
