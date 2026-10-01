@@ -5,14 +5,14 @@ layout: home
 hero:
   name: "防多设备检测指南"
   text: "一份简单的指南"
-  tagline: 帮助绕过校园网对于NAT的检测
+  tagline: 帮助你绕过校园网的防共享检测
   actions:
     - theme: brand
       text: 关于项目
-      link: /introduce/about
+      link: Main/about
     - theme: alt
       text: 快速开始
-      link: /getting-started
+      link: Main/getting-started
 
 features:
   - title: 检测原理
