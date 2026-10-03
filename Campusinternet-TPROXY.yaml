@@ -49,7 +49,7 @@ dns:
   nameserver-policy:
     '+.arpa': '10.0.0.1'
   nameserver:
-    - https://doh.pub/dns-query
+    - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
   fallback:
     - tls://1.1.1.1
