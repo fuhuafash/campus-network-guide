@@ -27,7 +27,7 @@ DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）用于�
 | **现代发行版Linux / BusyBox OpenWrt** | `1, 3, 6, 12, 15, 28, 51, 58` / `1, 3, 6, 15, 28, 51, 12` | 通常为空 / `udhcp <版本号>` |
 
 
-## 🔬 校园网检测 DHCP 指纹的原理
+## 🔬 DHCP 指纹判断规则
 
 校园网 DHCP 服务器或出口网关通过对 UDP 67/68 端口的 `DHCP Request` 报文进行抓包与解析，提取指纹并与系统基准库比对。
 
