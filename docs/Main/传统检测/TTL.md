@@ -25,7 +25,7 @@ TTL（Time To Live） 是 IPv4 数据包首部中的一个 8 位（bit） 字段
 | **Windows** | **128** | Windows 10/11、Windows Server |
 | **Unix / 部分网络设备** | **255** | Cisco 路由器、Solaris 系统等 |
 
-## 🔬 校园网检测 TTL 的原理
+## 🔬 TTL 检测判断规则
 
 校园网网关在出口处对所有 IPv4 数据包首部的 `TTL` 字段进行实时校验。
 
