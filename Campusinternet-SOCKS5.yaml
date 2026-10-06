@@ -263,10 +263,10 @@ rule-providers:
     interval: 86400
   AI:
     type: http
-    behavior: classical
+    behavior: domain
     format: mrs
-    url: "https://github.com/MetaCubeX/meta-rules-dat/blob/meta/geo/geosite/category-ai-!cn.mrs"
-    path: ./RuleSet/AI.yaml
+    url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/category-ai-!cn.mrs"
+    path: ./RuleSet/AI.mrs
     interval: 86400
   SteamCN:
     type: http
