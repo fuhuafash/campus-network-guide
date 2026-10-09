@@ -8,6 +8,10 @@ import "vitepress-theme-teek/theme-chalk/tk-nav.css";
 import "vitepress-theme-teek/theme-chalk/tk-doc-fade-in.css";
 import "vitepress-theme-teek/theme-chalk/tk-index-rainbow.css";
 
+// 包一层 Teek 的 Layout，用来挂桌宠（见 Layout.vue）
+import Layout from "./Layout.vue";
+
 export default {
   extends: Teek,
+  Layout,
 };
