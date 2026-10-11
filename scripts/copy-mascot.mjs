@@ -1,37 +1,53 @@
-// 把 web-mascot 包里的精灵拷到 VitePress 的静态目录 docs/public。
-//
-// 为什么需要这一步：打包器会重写 import.meta.url，库无法再自己推导出精灵的位置，
-// 所以精灵必须以「站点静态资源」的形式存在，再由主题里的 configure({ assets }) 指过去。
+// 把 web-mascot 包里的桌宠资源拷到 VitePress 的静态目录 docs/public。
 // 拷贝产物不进 git（见 .gitignore），每次 dev / build 前自动生成。
-import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-/** 要挂几只就写几只。这里加/减宠物时，记得同步 Layout.vue 里的 PACKS。 */
-const PACKS = ["Neuron", "Eviling"];
+/** pack 目录的两个必需文件，见库 README「加自己的宠物」。 */
+const REQUIRED = ["actions.xml", "behaviors.xml"];
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const srcRoot = resolve(root, "node_modules/web-mascot/dist/mascot_pack");
 const destRoot = resolve(root, "docs/public/mascot_pack");
+const manifest = resolve(root, "docs/.vitepress/mascot-packs.json");
 
 if (!existsSync(srcRoot)) {
-  console.error(`[mascot] 找不到精灵目录：${srcRoot}\n        请先执行 npm install。`);
+  console.error(`[mascot] 找不到桌宠资源目录：${srcRoot}\n请先执行 npm install。`);
   process.exit(1);
 }
 
-for (const pack of PACKS) {
+const isDir = (p) => {
+  try {
+    return statSync(p).isDirectory();
+  } catch {
+    return false;
+  }
+};
+
+const packs = readdirSync(srcRoot)
+  .filter((name) => isDir(resolve(srcRoot, name)))
+  .filter((name) => REQUIRED.every((f) => existsSync(resolve(srcRoot, name, f))))
+  .sort();
+
+if (packs.length === 0) {
+  console.error(
+    `[mascot] ${srcRoot} 下没有找到任何 pack（判定标准：同时含 ${REQUIRED.join(" 与 ")}）。`
+  );
+  process.exit(1);
+}
+
+for (const pack of packs) {
   const src = resolve(srcRoot, pack);
   const dest = resolve(destRoot, pack);
 
-  if (!existsSync(src)) {
-    console.error(`[mascot] 包内没有名为 "${pack}" 的精灵：${src}`);
-    process.exit(1);
-  }
-
-  // 整目录拷贝（含 LICENSE / LICENSE-CC-BY-NC-SA-4.0.txt，署名必须随资源保留）。
   rmSync(dest, { recursive: true, force: true });
   mkdirSync(dirname(dest), { recursive: true });
   cpSync(src, dest, { recursive: true });
 
   console.log(`[mascot] ${pack} -> docs/public/mascot_pack/${pack}`);
 }
+
+mkdirSync(dirname(manifest), { recursive: true });
+writeFileSync(manifest, `${JSON.stringify(packs, null, 2)}\n`);
+console.log(`[mascot] ${packs.length} 只宠物：${packs.join(", ")} -> docs/.vitepress/mascot-packs.json`);

@@ -16,12 +16,12 @@ hero:
 
 features:
   - title: 检测原理
-    details: 梳理校园网常见的多设备识别方式，如 TTL、DHCP 指纹、UA、MAC 等
+    details: 梳理校园网常见的多设备识别方式
   - title: DPI应对
-    details: 整理深度包检测的常见识别流量，加密混淆等应对思路与风险
+    details: 整理深度包检测的常见识别流量
   - title: 详细配置
-    details: 给出 OpenWrt 等路由器的具体设置步骤与注意事项
+    details: 给出 OpenWrt 的具体设置步骤
   - title: 自检与排错
-    details: TTL、DHCP 指纹、UA、MAC 等问题的排查
+    details: 防检测等问题的排查
 ---
 

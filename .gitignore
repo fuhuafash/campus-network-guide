@@ -3,5 +3,6 @@ docs/.vitepress/cache/
 
 node_modules/
 
-# web-mascot 的精灵由 scripts/copy-mascot.mjs 在 dev/build 前自动生成，不入库
+# web-mascot 的桌宠与桌宠清单由 scripts/copy-mascot.mjs 在 dev/build 前自动生成，不入库
 docs/public/mascot_pack/
+docs/.vitepress/mascot-packs.json
