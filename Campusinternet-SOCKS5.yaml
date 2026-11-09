@@ -142,6 +142,15 @@ proxy-groups:
       - USA
       - Global-ISP
 
+  - name: "特征域名"
+    type: select
+    proxies:
+      - HongKong
+      - Singapore
+      - Japan
+      - USA
+      - Global-ISP
+
 #--------------------------------------------------------------------------------------#
 # 下列为国外流量代理组
 
@@ -208,6 +217,45 @@ rules:
   # SteamCN流量走直连
   - RULE-SET,SteamCN,CN
 
+  # 三角洲专属域名
+  - DOMAIN-SUFFIX,df.qq.com,DIRECT
+  - DOMAIN-SUFFIX,cn-delta.com,DIRECT
+  - DOMAIN-SUFFIX,playdeltaforce.com,DIRECT
+  - DOMAIN-SUFFIX,levelinfinite.com,DIRECT
+  - DOMAIN-SUFFIX,intlgame.com,DIRECT
+  - DOMAIN-SUFFIX,proximabeta.com,DIRECT
+  - DOMAIN-SUFFIX,timibase.com,DIRECT
+
+  # 反作弊与 GCloud 联机框架
+  - DOMAIN-SUFFIX,anticheatexpert.com,DIRECT
+  - DOMAIN-SUFFIX,battlecare.net,DIRECT
+  - DOMAIN-SUFFIX,gcloud.qq.com,DIRECT
+  - DOMAIN-SUFFIX,gcloudsdk.com,DIRECT
+  - DOMAIN-SUFFIX,gcloudsvcs.com,DIRECT
+  - DOMAIN-SUFFIX,gcloudcs.com,DIRECT
+  - DOMAIN-SUFFIX,hkgcloudcs.com,DIRECT
+  - DOMAIN-SUFFIX,nagcloudcs.com,DIRECT
+  - DOMAIN-SUFFIX,gclouddolphin.com,DIRECT
+  - DOMAIN-SUFFIX,tencent-gcloud.com,DIRECT
+  - DOMAIN-SUFFIX,gameitop.com,DIRECT
+
+  # WeGame 与腾讯游戏基础服务
+  - DOMAIN-SUFFIX,wegame.com,DIRECT
+  - DOMAIN-SUFFIX,wegame.com.cn,DIRECT
+  - DOMAIN-SUFFIX,wegameplus.com,DIRECT
+  - DOMAIN-SUFFIX,gtgres.com,DIRECT
+  - DOMAIN-SUFFIX,realcybertron.com,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,tencent.com,DIRECT
+  - DOMAIN-SUFFIX,myqcloud.com,DIRECT
+
+  # 反监控
+  - DOMAIN,flash.sec.miui.com,REJECT
+  - DOMAIN,fraud-detection.engine.miui.com,REJECT
+  - DOMAIN,eps.caict.ac.cn,REJECT
+  - DOMAIN,gateway-papa.cloud.weizhi.com,REJECT
+  - DOMAIN,dm.wo.com.cn,REJECT
+  - DOMAIN,detection-aigc.engine.miui.com,REJECT
 #--------------------------------------------------------------------------------------#
   # 有其它流量特征需要代理请在下方添加（例如抖音流量）
 
@@ -220,8 +268,21 @@ rules:
   - DOMAIN-KEYWORD,wx,WeChat&QQ
   - DOMAIN-KEYWORD,qq,WeChat&QQ
 
+  # 连通性探测请求
+  - DOMAIN-SUFFIX,captive.apple.com,特征域名
+  - DOMAIN,connectivitycheck.gstatic.com,特征域名
+  - DOMAIN,clients3.google.com,特征域名
+  - DOMAIN,www.gstatic.com,特征域名
+  - DOMAIN,connect.rom.miui.com,特征域名
+  - DOMAIN,connectivitycheck.platform.hicloud.com,特征域名
+  - DOMAIN,connectivitycheck.platform.hihonorcloud.com,特征域名
+  - DOMAIN,wifi.vivo.com.cn,特征域名
+  - DOMAIN,conn1.oppomobile.com,特征域名
+  - DOMAIN,conn2.oppomobile.com,特征域名
+  - DOMAIN,connectivity.samsung.com.cn,特征域名
+  - DOMAIN,www.qualcomm.cn,特征域名
+  - DOMAIN,www.qualcomm.com,特征域名
 #--------------------------------------------------------------------------------------#
-
   # Apple Intelligence
   - DOMAIN-SUFFIX,gateway.icloud.com,Apple Intelligence
   - DOMAIN-SUFFIX,apple-relay.apple.com,Apple Intelligence
