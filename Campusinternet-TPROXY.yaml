@@ -239,7 +239,6 @@ rules:
   - DOMAIN-SUFFIX,wegameplus.com,DIRECT
   - DOMAIN-SUFFIX,gtgres.com,DIRECT
   - DOMAIN-SUFFIX,realcybertron.com,DIRECT
-  - DOMAIN-SUFFIX,qq.com,DIRECT
   - DOMAIN-SUFFIX,tencent.com,DIRECT
   - DOMAIN-SUFFIX,myqcloud.com,DIRECT
 
