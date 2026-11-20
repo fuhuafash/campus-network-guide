@@ -16,6 +16,9 @@
 
 </div>
 
+## 访问地址
+https://fuhuafash.github.io/campus-network-guide/
+
 ## ⭐ 特点
 
 目前较少教程整理关于如何应对DPI，虽然深度包检测耗费性能，但是如果各位的高校上了DPI，本指南提供了方向
